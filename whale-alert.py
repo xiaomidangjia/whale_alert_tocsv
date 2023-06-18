@@ -70,7 +70,7 @@ while True:
                                     from_address_now = sub_df['from_address'][j]
                                     to_address_now = sub_df['to_address'][j]
                                     to_address_owner_now = sub_df['to_address_owner'][j]
-                                    utctime_now = sub_df['timestamp'][j] - datetime.timedelta(hours=8)
+                                    utctime_now = pd.to_datetime(sub_df['timestamp'][j]) - datetime.timedelta(hours=8)
                                     amount_now = str(round(sub_df['amount'][j],2))
                                     amount_usd_now = str(round(sub_df['amount_usd'][j]/10000,1))
                                     hash_v = sub_df['hash_value'][j]
@@ -87,7 +87,7 @@ while True:
                                     from_address_now = sub_df['from_address'][j]
                                     to_address_now = sub_df['to_address'][j]
                                     to_address_owner_now = sub_df['to_address_owner'][j]
-                                    utctime_now = sub_df['timestamp'][j] - datetime.timedelta(hours=8)
+                                    utctime_now = pd.to_datetime(sub_df['timestamp'][j]) - datetime.timedelta(hours=8)
                                     amount_now = str(round(sub_df['amount'][j]/10000,1))
                                     amount_usd_now = str(round(sub_df['amount_usd'][j]/10000,1))
                                     hash_v = sub_df['hash_value'][j]
