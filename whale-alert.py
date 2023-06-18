@@ -67,11 +67,10 @@ while True:
                                 blockchain = sub_df['blockchain'][j]
                                 currecy_now = sub_df['currecy'][j]
                                 if currecy_now in ('BTC','ETH'):
-                                    alert = '%s砸盘风险'%(currecy_now)
                                     from_address_now = sub_df['from_address'][j]
                                     to_address_now = sub_df['to_address'][j]
                                     to_address_owner_now = sub_df['to_address_owner'][j]
-                                    localtime_now = str(sub_df['timestamp'][j])
+                                    utctime_now = sub_df['timestamp'][j] - datetime.timedelta(hours=8)
                                     amount_now = str(round(sub_df['amount'][j],2))
                                     amount_usd_now = str(round(sub_df['amount_usd'][j]/10000,1))
                                     hash_v = sub_df['hash_value'][j]
@@ -80,16 +79,15 @@ while True:
                                     else:
                                         sub_hash.append(hash_v)
                                         df = pd.read_csv('res_alert.csv')
-                                        sub_df = pd.DataFrame({'alert':'btc','date':now_time,'amount_usd_now':amount_usd_now},index=[0])
+                                        sub_df = pd.DataFrame({'date':utctime_now,'crypto':currecy_now,'exchange':to_address_owner_now,'number':amount_now,'value':amount_usd_now,'hash':hash_v},index=[0])
                                         df = pd.concat([df,sub_df])
                                         df.to_csv('res_alert.csv',index=False)
 
                                 else:
-                                    alert = '稳定币入场'
                                     from_address_now = sub_df['from_address'][j]
                                     to_address_now = sub_df['to_address'][j]
                                     to_address_owner_now = sub_df['to_address_owner'][j]
-                                    localtime_now = str(sub_df['timestamp'][j])
+                                    utctime_now = sub_df['timestamp'][j] - datetime.timedelta(hours=8)
                                     amount_now = str(round(sub_df['amount'][j]/10000,1))
                                     amount_usd_now = str(round(sub_df['amount_usd'][j]/10000,1))
                                     hash_v = sub_df['hash_value'][j]
@@ -97,9 +95,8 @@ while True:
                                         continue 
                                     else:
                                         sub_hash.append(hash_v)
-
                                         df = pd.read_csv('res_alert.csv')
-                                        sub_df = pd.DataFrame({'alert':'usd','date':now_time,'amount_usd_now':amount_usd_now},index=[0])
+                                        sub_df = pd.DataFrame({'date':utctime_now,'crypto':currecy_now,'exchange':to_address_owner_now,'number':amount_now,'value':amount_usd_now,'hash':hash_v},index=[0])
                                         df = pd.concat([df,sub_df])
                                         df.to_csv('res_alert.csv',index=False)
 
